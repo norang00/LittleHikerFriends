@@ -1,0 +1,26 @@
+
+# API Keys and sensitive data
+API_info.swift
+APIKeys.swift
+Config.swift
+**/APIKeys.plist
+*.plist
+
+# Xcode
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+DerivedData/
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# 기타
+.DS_Store
+*.swp
+*.swo
