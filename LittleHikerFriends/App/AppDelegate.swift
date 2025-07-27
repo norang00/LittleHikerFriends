@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         // Naver SDK 설정
-        NMFAuthManager.shared().ncpKeyId = Naver.clientID
+//        NMFAuthManager.shared().ncpKeyId = Naver.clientID
 
         return true
     }

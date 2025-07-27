@@ -17,7 +17,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		EE7D7ACA2DB3E7E30011C1B0 /* Exceptions for "LittleHikerFriends" folder in "LittleHikerFriends" target */ = {
+		1E8519E82E36713200BD320E /* Exceptions for "LittleHikerFriends" folder in "LittleHikerFriends" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -30,7 +30,7 @@
 		EE7D7ABA2DB3E7E10011C1B0 /* LittleHikerFriends */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				EE7D7ACA2DB3E7E30011C1B0 /* Exceptions for "LittleHikerFriends" folder in "LittleHikerFriends" target */,
+				1E8519E82E36713200BD320E /* Exceptions for "LittleHikerFriends" folder in "LittleHikerFriends" target */,
 			);
 			path = LittleHikerFriends;
 			sourceTree = "<group>";
