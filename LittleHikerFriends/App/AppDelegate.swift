@@ -7,14 +7,19 @@
 
 import UIKit
 import NMapsMap
+import KakaoSDKCommon
+import NaturalLanguage
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
+        
+        if let path = Bundle.main.path(forResource: "Config", ofType: "plist"),
+           let dict = NSDictionary(contentsOfFile: path) as? [String: Any] {
+            guard let kakaoKey = dict["KAKAO_NATIVE_APP_KEY"] as? String else { return true }
+            KakaoSDK.initSDK(appKey: kakaoKey)
+        }
+        
         // Naver SDK 설정
 //        NMFAuthManager.shared().ncpKeyId = Naver.clientID
 

@@ -4,6 +4,7 @@ API_info.swift
 APIKeys.swift
 Config.swift
 **/APIKeys.plist
+Config.plist
 
 # Xcode
 *.xcworkspace/xcuserdata/

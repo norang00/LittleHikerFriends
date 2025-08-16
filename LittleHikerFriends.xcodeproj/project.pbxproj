@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E8519EE2E367A9900BD320E /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 1E8519ED2E367A9900BD320E /* KakaoSDK */; };
+		1E8519F02E367A9900BD320E /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1E8519EF2E367A9900BD320E /* KakaoSDKAuth */; };
+		1E8519F22E367A9900BD320E /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 1E8519F12E367A9900BD320E /* KakaoSDKCommon */; };
+		1E8519F42E367A9900BD320E /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 1E8519F32E367A9900BD320E /* KakaoSDKUser */; };
 		EE2CFD272E237D0E0018D2AB /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = EE2CFD262E237D0E0018D2AB /* .gitignore */; };
 		EE7D7B5D2DB3EA4A0011C1B0 /* NMapsMap in Frameworks */ = {isa = PBXBuildFile; productRef = EE7D7B5C2DB3EA4A0011C1B0 /* NMapsMap */; };
 /* End PBXBuildFile section */
@@ -42,7 +46,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E8519F22E367A9900BD320E /* KakaoSDKCommon in Frameworks */,
 				EE7D7B5D2DB3EA4A0011C1B0 /* NMapsMap in Frameworks */,
+				1E8519EE2E367A9900BD320E /* KakaoSDK in Frameworks */,
+				1E8519F42E367A9900BD320E /* KakaoSDKUser in Frameworks */,
+				1E8519F02E367A9900BD320E /* KakaoSDKAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +95,10 @@
 			name = LittleHikerFriends;
 			packageProductDependencies = (
 				EE7D7B5C2DB3EA4A0011C1B0 /* NMapsMap */,
+				1E8519ED2E367A9900BD320E /* KakaoSDK */,
+				1E8519EF2E367A9900BD320E /* KakaoSDKAuth */,
+				1E8519F12E367A9900BD320E /* KakaoSDKCommon */,
+				1E8519F32E367A9900BD320E /* KakaoSDKUser */,
 			);
 			productName = LittleHikerFriends;
 			productReference = EE7D7AB82DB3E7E10011C1B0 /* LittleHikerFriends.app */;
@@ -118,6 +130,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				EE7D7B5B2DB3EA4A0011C1B0 /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */,
+				1E8519EC2E367A9900BD320E /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = EE7D7AB92DB3E7E10011C1B0 /* Products */;
@@ -162,7 +175,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LittleHikerFriends/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -194,7 +207,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LittleHikerFriends/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -358,6 +371,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1E8519EC2E367A9900BD320E /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.24.5;
+			};
+		};
 		EE7D7B5B2DB3EA4A0011C1B0 /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/navermaps/SPM-NMapsMap";
@@ -369,6 +390,26 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1E8519ED2E367A9900BD320E /* KakaoSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1E8519EC2E367A9900BD320E /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDK;
+		};
+		1E8519EF2E367A9900BD320E /* KakaoSDKAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1E8519EC2E367A9900BD320E /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKAuth;
+		};
+		1E8519F12E367A9900BD320E /* KakaoSDKCommon */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1E8519EC2E367A9900BD320E /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKCommon;
+		};
+		1E8519F32E367A9900BD320E /* KakaoSDKUser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1E8519EC2E367A9900BD320E /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKUser;
+		};
 		EE7D7B5C2DB3EA4A0011C1B0 /* NMapsMap */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = EE7D7B5B2DB3EA4A0011C1B0 /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */;

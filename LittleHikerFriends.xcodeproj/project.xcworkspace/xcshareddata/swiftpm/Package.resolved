@@ -1,6 +1,24 @@
 {
-  "originHash" : "7e776a9f5c59beffd508fcaf65913b75c78f8867da469e517125a03b839d1f0b",
+  "originHash" : "d1b5582196d9db10dc71d78207d615c4503f0f000d5f6bc82a77e33d4157ba3e",
   "pins" : [
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire.git",
+      "state" : {
+        "revision" : "513364f870f6bfc468f9d2ff0a95caccc10044c5",
+        "version" : "5.10.2"
+      }
+    },
+    {
+      "identity" : "kakao-ios-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kakao/kakao-ios-sdk",
+      "state" : {
+        "revision" : "394ccfc67b206894f55dcaf2dd15e06bf451c4d3",
+        "version" : "2.24.5"
+      }
+    },
     {
       "identity" : "spm-nmapsgeometry",
       "kind" : "remoteSourceControl",
