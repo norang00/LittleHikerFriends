@@ -4,116 +4,52 @@
 //
 //  Created by sungkug_apple_developer_ac on 7/27/25.
 //
-
 import UIKit
-import KakaoSDKUser
+import Combine
 
-class LoginViewController: UIViewController {
-    
-    private let appleLoginButton: UIButton = {
-        let button = UIButton()
-        let loginType = LoginButtonType.apple
-        button.setImage(UIImage(named: loginType.imageName), for: .normal)
-        button.imageView?.contentMode = .scaleAspectFit
-        button.addTarget(self, action: #selector(handleAppleLogin), for: .touchUpInside)
-        return button
-    }()
+final class LoginViewController: UIViewController {
+    private let content = LoginView()
+    private let vm: LoginViewModel
+    private var bag = Set<AnyCancellable>()
 
-    private let kakaoLoginButton: UIButton = {
-        let button = UIButton()
-        let loginType = LoginButtonType.kakao
-        button.setImage(UIImage(named: loginType.imageName), for: .normal)
-        button.imageView?.contentMode = .scaleAspectFit
-        button.addTarget(self, action: #selector(handleKakaoLogin), for: .touchUpInside)
-        return button
-    }()
+    init(vm: LoginViewModel) { self.vm = vm; super.init(nibName: nil, bundle: nil) }
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
+    override func loadView() { view = content }
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        setupLayout()
+        bind()
     }
 
-    private func setupLayout() {
-        [kakaoLoginButton, appleLoginButton].forEach {
-            view.addSubview($0)
-            $0.translatesAutoresizingMaskIntoConstraints = false
+    private func bind() {
+        content.onTapKakao = { [weak self] in
+            guard let self else { return }
+            Task { await self.vm.tapKakao() }
         }
+        content.onTapApple = { [weak self] in self?.vm.tapApple() }
 
-        NSLayoutConstraint.activate([
-            appleLoginButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
-            appleLoginButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            appleLoginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            appleLoginButton.heightAnchor.constraint(equalToConstant: 45),
-            
-            kakaoLoginButton.bottomAnchor.constraint(equalTo: appleLoginButton.topAnchor, constant: -20),
-            kakaoLoginButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            kakaoLoginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            kakaoLoginButton.heightAnchor.constraint(equalToConstant: 45),
-        ])
-    }
+        vm.$state.sink { [weak self] s in
+            guard let self else { return }
+            switch s {
+            case .idle: self.content.setLoading(false)
+            case .loading: self.content.setLoading(true)
+            case .error(let msg):
+                self.content.setLoading(false)
+                let a = UIAlertController(title: "알림", message: msg, preferredStyle: .alert)
+                a.addAction(.init(title: "확인", style: .default))
+                self.present(a, animated: true)
+            }
+        }.store(in: &bag)
 
-    @objc private func handleAppleLogin() {
-        print("애플 로그인 시도")
-        // Apple 로그인 로직 호출
-    }
-
-    @objc private func handleKakaoLogin() {
-        print("카카오 로그인 시도")
-        kakaoLogin { [weak self] isSuccess in
-            guard let self = self else { return }
-            if isSuccess {
-                self.checkProfileAndNavigate()
-            } else {
-                // 로그인 실패 처리
+        vm.route = { [weak self] r in
+            guard let self else { return }
+            switch r {
+            case .main:
+                self.navigationController?.pushViewController(ViewController(), animated: true)
+            case .profile:
+                let vc = UIViewController(); vc.view.backgroundColor = .systemGroupedBackground; vc.title = "프로필 만들기"
+                self.navigationController?.pushViewController(vc, animated: true)
             }
         }
-    }
-    
-    private func kakaoLogin(completion: @escaping (Bool) -> Void) {
-        if UserApi.isKakaoTalkLoginAvailable() {
-            UserApi.shared.loginWithKakaoTalk { token, error in
-                if let token = token {
-                    print("로그인 성공! 토큰: \(token.accessToken)")
-                    completion(true)
-                } else {
-                    print("로그인 실패: \(error?.localizedDescription ?? "unknown")")
-                    completion(false)
-                }
-            }
-        } else {
-            UserApi.shared.loginWithKakaoAccount { token, error in
-                if let token = token {
-                    print("로그인 성공! 토큰: \(token.accessToken)")
-                    completion(true)
-                } else {
-                    print("로그인 실패: \(error?.localizedDescription ?? "unknown")")
-                    completion(false)
-                }
-            }
-        }
-    }
-    
-    private func checkProfileAndNavigate() {
-        if profileExists() {
-            goToMain()
-        } else {
-            goToProfileCreation()
-        }
-    }
-    
-    private func goToMain() {
-        let vc = ViewController()
-        navigationController?.pushViewController(vc, animated: true)
-    }
-
-    private func goToProfileCreation() {
-        // TODO: 프로필 생성뷰 연결
-    }
-    
-    private func profileExists() -> Bool {
-        // TODO: 프로필 존재 확인, 서버로 부터 확인 후 생성
-        
-        return UserDefaults.standard.bool(forKey: "hasProfile")
     }
 }

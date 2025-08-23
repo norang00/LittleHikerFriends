@@ -13,10 +13,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        window = UIWindow(windowScene: windowScene)
-        window?.frame = UIScreen.main.bounds
-        window?.rootViewController = UINavigationController(rootViewController: LoginViewController())
-        window?.makeKeyAndVisible()
+
+        let window = UIWindow(windowScene: windowScene)
+        let provider = KakaoLoginProvider()
+        let auth = KakaoAuthService(provider: provider)   // TODO: Firebase로 교체 예정
+        let vm = LoginViewModel(auth: auth)
+        let root = LoginViewController(vm: vm)
+
+        window.rootViewController = UINavigationController(rootViewController: root)
+        self.window = window
+        window.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
