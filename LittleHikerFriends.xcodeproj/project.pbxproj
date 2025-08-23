@@ -11,6 +11,10 @@
 		1E8519F02E367A9900BD320E /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1E8519EF2E367A9900BD320E /* KakaoSDKAuth */; };
 		1E8519F22E367A9900BD320E /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 1E8519F12E367A9900BD320E /* KakaoSDKCommon */; };
 		1E8519F42E367A9900BD320E /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 1E8519F32E367A9900BD320E /* KakaoSDKUser */; };
+		1E8FFA1D2E59F14B001BA27A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1E8FFA1C2E59F14B001BA27A /* FirebaseAuth */; };
+		1E8FFA1F2E59F14B001BA27A /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 1E8FFA1E2E59F14B001BA27A /* FirebaseCore */; };
+		1E8FFA212E59F14B001BA27A /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 1E8FFA202E59F14B001BA27A /* FirebaseFirestore */; };
+		1E8FFA232E59F14B001BA27A /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 1E8FFA222E59F14B001BA27A /* FirebaseFunctions */; };
 		EE2CFD272E237D0E0018D2AB /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = EE2CFD262E237D0E0018D2AB /* .gitignore */; };
 		EE7D7B5D2DB3EA4A0011C1B0 /* NMapsMap in Frameworks */ = {isa = PBXBuildFile; productRef = EE7D7B5C2DB3EA4A0011C1B0 /* NMapsMap */; };
 /* End PBXBuildFile section */
@@ -47,8 +51,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E8519F22E367A9900BD320E /* KakaoSDKCommon in Frameworks */,
+				1E8FFA1D2E59F14B001BA27A /* FirebaseAuth in Frameworks */,
 				EE7D7B5D2DB3EA4A0011C1B0 /* NMapsMap in Frameworks */,
+				1E8FFA232E59F14B001BA27A /* FirebaseFunctions in Frameworks */,
 				1E8519EE2E367A9900BD320E /* KakaoSDK in Frameworks */,
+				1E8FFA1F2E59F14B001BA27A /* FirebaseCore in Frameworks */,
+				1E8FFA212E59F14B001BA27A /* FirebaseFirestore in Frameworks */,
 				1E8519F42E367A9900BD320E /* KakaoSDKUser in Frameworks */,
 				1E8519F02E367A9900BD320E /* KakaoSDKAuth in Frameworks */,
 			);
@@ -99,6 +107,10 @@
 				1E8519EF2E367A9900BD320E /* KakaoSDKAuth */,
 				1E8519F12E367A9900BD320E /* KakaoSDKCommon */,
 				1E8519F32E367A9900BD320E /* KakaoSDKUser */,
+				1E8FFA1C2E59F14B001BA27A /* FirebaseAuth */,
+				1E8FFA1E2E59F14B001BA27A /* FirebaseCore */,
+				1E8FFA202E59F14B001BA27A /* FirebaseFirestore */,
+				1E8FFA222E59F14B001BA27A /* FirebaseFunctions */,
 			);
 			productName = LittleHikerFriends;
 			productReference = EE7D7AB82DB3E7E10011C1B0 /* LittleHikerFriends.app */;
@@ -131,6 +143,7 @@
 			packageReferences = (
 				EE7D7B5B2DB3EA4A0011C1B0 /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */,
 				1E8519EC2E367A9900BD320E /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+				1E8FFA1B2E59F14B001BA27A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = EE7D7AB92DB3E7E10011C1B0 /* Products */;
@@ -379,6 +392,14 @@
 				minimumVersion = 2.24.5;
 			};
 		};
+		1E8FFA1B2E59F14B001BA27A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.1.0;
+			};
+		};
 		EE7D7B5B2DB3EA4A0011C1B0 /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/navermaps/SPM-NMapsMap";
@@ -409,6 +430,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1E8519EC2E367A9900BD320E /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDKUser;
+		};
+		1E8FFA1C2E59F14B001BA27A /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1E8FFA1B2E59F14B001BA27A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		1E8FFA1E2E59F14B001BA27A /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1E8FFA1B2E59F14B001BA27A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		1E8FFA202E59F14B001BA27A /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1E8FFA1B2E59F14B001BA27A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		1E8FFA222E59F14B001BA27A /* FirebaseFunctions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1E8FFA1B2E59F14B001BA27A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFunctions;
 		};
 		EE7D7B5C2DB3EA4A0011C1B0 /* NMapsMap */ = {
 			isa = XCSwiftPackageProductDependency;
