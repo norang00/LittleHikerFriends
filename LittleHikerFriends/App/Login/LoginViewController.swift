@@ -8,15 +8,6 @@
 import UIKit
 import KakaoSDKUser
 
-enum LoginButtonType: String {
-    case apple = "애플로그인버튼"
-    case kakao = "카카오로그인버튼"
-    
-    var imageName: String {
-        rawValue
-    }
-}
-
 class LoginViewController: UIViewController {
     
     private let appleLoginButton: UIButton = {
