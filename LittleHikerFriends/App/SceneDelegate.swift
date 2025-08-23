@@ -12,12 +12,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard let windowScene = (scene as? UIWindowScene) else { return }
+        guard let windowScene = scene as? UIWindowScene else { return }
 
         let window = UIWindow(windowScene: windowScene)
+
+        // Kakao Provider
         let provider = KakaoLoginProvider()
-        let auth = KakaoAuthService(provider: provider)   // TODO: Firebase로 교체 예정
-        let vm = LoginViewModel(auth: auth)
+
+        // Firestore Repository
+        let userRepo = UserRepository()
+
+        // Firebase AuthService (Kakao → Functions kakaoLogin → CustomToken → signIn)
+        let authService = FirebaseAuthService(provider: provider, userRepo: userRepo)
+
+        // ViewModel / Root VC
+        let vm = LoginViewModel(auth: authService)
         let root = LoginViewController(vm: vm)
 
         window.rootViewController = UINavigationController(rootViewController: root)
