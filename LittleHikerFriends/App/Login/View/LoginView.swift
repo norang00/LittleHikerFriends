@@ -72,9 +72,11 @@ final class LoginView: UIView {
 
     // 로딩 상태
     func setLoading(_ loading: Bool) {
-        loading ? activity.startAnimating() : activity.stopAnimating()
-        appleLoginButton.isEnabled = !loading
-        kakaoLoginButton.isEnabled = !loading
+        DispatchQueue.main.async {
+            loading ? self.activity.startAnimating() : self.activity.stopAnimating()
+            self.appleLoginButton.isEnabled = !loading
+            self.kakaoLoginButton.isEnabled = !loading
+        }
     }
 
     // MARK: - Actions
