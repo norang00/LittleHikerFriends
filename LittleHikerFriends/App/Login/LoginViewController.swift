@@ -47,7 +47,7 @@ final class LoginViewController: UIViewController {
             case .main:
                 self.navigationController?.pushViewController(ViewController(), animated: true)
             case .profile:
-                let vc = UIViewController(); vc.view.backgroundColor = .systemGroupedBackground; vc.title = "프로필 만들기"
+                let vc = CreateProfileViewController(); vc.view.backgroundColor = .systemGroupedBackground; vc.title = "프로필 만들기"
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         }
