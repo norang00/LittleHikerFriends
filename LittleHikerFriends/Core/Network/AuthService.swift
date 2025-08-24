@@ -10,8 +10,13 @@ import FirebaseAuth
 import FirebaseFunctions
 import FirebaseFirestore
 
+enum SignInOutcome {
+    case newUser(AppUser)     // 프로필 생성
+    case existing(AppUser)    // 메인으로
+}
+
 protocol AuthService {
-    func signInWithKakao() async throws
+    func signInWithKakao() async throws -> SignInOutcome
 }
 
 final class FirebaseAuthService: AuthService {
@@ -27,36 +32,26 @@ final class FirebaseAuthService: AuthService {
         self.userRepo = userRepo
     }
 
-    func signInWithKakao() async throws {
+    func signInWithKakao() async throws -> SignInOutcome {
+        // 카카오 로그인 → accessToken
         let cred = try await provider.login()
 
-        do {
-            // Cloud Functions 호출 → customToken 수령
-            let result = try await functions.httpsCallable("kakaoLogin")
-                .call(["accessToken": cred.accessToken])
+        // Functions 호출 → customToken
+        let res = try await functions.httpsCallable("kakaoLogin")
+            .call(["accessToken": cred.accessToken])
 
-            guard
-                let dict = result.data as? [String: Any],
-                let customToken = dict["customToken"] as? String
-            else {
-                throw NSError(domain: "Auth",
-                              code: -2,
-                              userInfo: [NSLocalizedDescriptionKey: "Invalid kakaoLogin response: \(result.data)"])
-            }
-
-            // Firebase 로그인
-            let authResult = try await Auth.auth().signIn(withCustomToken: customToken)
-            let user = authResult.user
-            print("Firebase signIn success uid:", user.uid)
-
-            // Firestore upsert
-            _ = try await userRepo.upsertUser(user)
-
-        } catch {
-            let ns = error as NSError
-            let fnCode = (ns.domain == FunctionsErrorDomain) ? FunctionsErrorCode(rawValue: ns.code) ?? .unknown : .unknown
-            let details = ns.userInfo[FunctionsErrorDetailsKey] ?? ns.userInfo
-            print("code:", fnCode, "details:", details)
+        guard let dict = res.data as? [String: Any],
+              let customToken = dict["customToken"] as? String else {
+            throw NSError(domain: "Auth", code: -2,
+                          userInfo: [NSLocalizedDescriptionKey: "Invalid kakaoLogin response"])
         }
+
+        // Firebase Auth 로그인
+        let authRes = try await Auth.auth().signIn(withCustomToken: customToken)
+        let user = authRes.user
+
+        // Firestore upsert + 신규여부 판단
+        let (appUser, isNew) = try await userRepo.upsertUser(user, defaultNickname: nil)
+        return isNew ? .newUser(appUser) : .existing(appUser)
     }
 }

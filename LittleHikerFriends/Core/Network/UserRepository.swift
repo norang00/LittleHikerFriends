@@ -11,22 +11,29 @@ import FirebaseAuth
 final class UserRepository {
     private let db = Firestore.firestore()
 
-    func upsertUser(_ authUser: FirebaseAuth.User, defaultNickname: String? = nil) async throws -> AppUser {
-        let ref = db.collection("users").document(authUser.uid)
+    func upsertUser(_ authUser: FirebaseAuth.User,
+                    defaultNickname: String? = nil) async throws -> (AppUser, Bool) {
+
+        let uid = authUser.uid
+        let ref = db.collection("users").document(uid)
+
+        // 존재 여부 먼저 확인
         let snap = try await ref.getDocument()
 
-        if let existing = try? snap.data(as: AppUser.self) {
+        if snap.exists, let existing = try? snap.data(as: AppUser.self) {
+            // 기존 유저 → updatedAt만 갱신
             try await ref.setData(["updatedAt": FieldValue.serverTimestamp()], merge: true)
-            return existing
+            return (existing, false)
         } else {
+            // 신규 유저 생성 (한 번의 setData(from:)으로 created/updated @ServerTimestamp 채워짐)
             let nickname = authUser.displayName ?? defaultNickname ?? "User"
-            var new = AppUser.new(uid: authUser.uid, nickname: nickname)
-            try ref.setData(from: new, merge: true)
-            try await ref.setData([
-                "createdAt": FieldValue.serverTimestamp(),
-                "updatedAt": FieldValue.serverTimestamp()
-            ], merge: true)
-            return new
+            let newUser = AppUser.new(uid: uid, nickname: nickname)
+
+            try ref.setData(from: newUser, merge: true)
+            // 필요하면 최신 스냅으로 리로드
+            let latest = try await ref.getDocument()
+            let materialized = (try? latest.data(as: AppUser.self)) ?? newUser
+            return (materialized, true)
         }
     }
 

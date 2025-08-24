@@ -21,9 +21,11 @@ final class LoginViewModel: ObservableObject {
     func tapKakao() async {
         state = .loading
         do {
-            try await auth.signInWithKakao()
-            let has = UserDefaults.standard.bool(forKey: "hasProfile") // 임시
-            route?(has ? .main : .profile)
+            let outcome = try await auth.signInWithKakao()
+            switch outcome {
+            case .newUser(_): route?(.profile)
+            case .existing(_): route?(.main)
+            }
             state = .idle
         } catch {
             state = .error((error as NSError).localizedDescription)
