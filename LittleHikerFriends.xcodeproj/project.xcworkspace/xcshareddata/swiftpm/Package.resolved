@@ -1,5 +1,5 @@
 {
-  "originHash" : "c2038fd67ca4b8e6d224482c6c96800b72d778d1ff817cfe338206ca8a69bef2",
+  "originHash" : "a8c482eb8dcbfcedd3551ecfa3b787db73b2b193a2d8f79d82b8a4f64bdad565",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -105,8 +105,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/kakao/kakao-ios-sdk",
       "state" : {
-        "revision" : "394ccfc67b206894f55dcaf2dd15e06bf451c4d3",
-        "version" : "2.24.5"
+        "revision" : "f17e30773062d9df4c8e0e211da9ac22dfb2e5c1",
+        "version" : "2.24.6"
       }
     },
     {
