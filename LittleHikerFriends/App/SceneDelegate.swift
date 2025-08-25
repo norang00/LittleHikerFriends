@@ -16,22 +16,63 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let window = UIWindow(windowScene: windowScene)
 
-        // Kakao Provider
-        let provider = KakaoLoginProvider()
-
-        // Firestore Repository
-        let userRepo = UserRepository()
-
-        // Firebase AuthService (Kakao → Functions kakaoLogin → CustomToken → signIn)
-        let authService = FirebaseAuthService(provider: provider, userRepo: userRepo)
-
-        // ViewModel / Root VC
-        let vm = LoginViewModel(auth: authService)
-        let root = LoginViewController(vm: vm)
-
-        window.rootViewController = UINavigationController(rootViewController: root)
+        // MARK: - 탭바를 시작점으로 설정 (개발용)
+        let tabBarController = MainTabBarController()
+        window.rootViewController = tabBarController
         self.window = window
         window.makeKeyAndVisible()
+        
+        print("✅ MainTabBarController로 앱 시작")
+
+        /* MARK: - 로그인 플로우 (추후 활성화 예정)
+        do {
+            // Kakao Provider
+            let provider = KakaoLoginProvider()
+
+            // Firestore Repository
+            let userRepo = UserRepository()
+
+            // Firebase AuthService (Kakao → Functions kakaoLogin → CustomToken → signIn)
+            let authService = FirebaseAuthService(provider: provider, userRepo: userRepo)
+
+            // ViewModel / Root VC
+            let vm = LoginViewModel(auth: authService)
+            let root = LoginViewController(vm: vm)
+
+            window.rootViewController = UINavigationController(rootViewController: root)
+            self.window = window
+            window.makeKeyAndVisible()
+            
+            print("✅ LoginViewController 초기화 성공")
+            
+        } catch {
+            print("❌ LoginViewController 초기화 실패: \(error)")
+            
+            // 실패 시 폴백 화면
+            let fallbackVC = UIViewController()
+            fallbackVC.view.backgroundColor = .systemRed
+            
+            let label = UILabel()
+            label.text = "초기화 오류\n\(error.localizedDescription)"
+            label.textColor = .white
+            label.font = .systemFont(ofSize: 16)
+            label.textAlignment = .center
+            label.numberOfLines = 0
+            
+            fallbackVC.view.addSubview(label)
+            label.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                label.centerXAnchor.constraint(equalTo: fallbackVC.view.centerXAnchor),
+                label.centerYAnchor.constraint(equalTo: fallbackVC.view.centerYAnchor),
+                label.leadingAnchor.constraint(greaterThanOrEqualTo: fallbackVC.view.leadingAnchor, constant: 20),
+                label.trailingAnchor.constraint(lessThanOrEqualTo: fallbackVC.view.trailingAnchor, constant: -20)
+            ])
+            
+            window.rootViewController = fallbackVC
+            self.window = window
+            window.makeKeyAndVisible()
+        }
+        */
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
