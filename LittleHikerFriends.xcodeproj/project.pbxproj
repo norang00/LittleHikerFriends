@@ -20,17 +20,29 @@
 		1E8519E82E36713200BD320E /* Exceptions for "LittleHikerFriends" folder in "LittleHikerFriends" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Features/HikingMap/SampleResponse.json,
 				Info.plist,
 			);
 			target = EE7D7AB72DB3E7E10011C1B0 /* LittleHikerFriends */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		EE6556C52E3F2F3800E7F08C /* Exceptions for "LittleHikerFriends" folder in "Compile Sources" phase from "LittleHikerFriends" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = EE7D7AB42DB3E7E10011C1B0 /* Sources */;
+			membershipExceptions = (
+				Features/HikingMap/SampleResponse.json,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		EE7D7ABA2DB3E7E10011C1B0 /* LittleHikerFriends */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				1E8519E82E36713200BD320E /* Exceptions for "LittleHikerFriends" folder in "LittleHikerFriends" target */,
+				EE6556C52E3F2F3800E7F08C /* Exceptions for "LittleHikerFriends" folder in "Compile Sources" phase from "LittleHikerFriends" target */,
 			);
 			path = LittleHikerFriends;
 			sourceTree = "<group>";
