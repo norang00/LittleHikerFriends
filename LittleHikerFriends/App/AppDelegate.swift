@@ -7,14 +7,22 @@
 
 import UIKit
 import NMapsMap
+import KakaoSDKCommon
+import FirebaseCore
+import NaturalLanguage
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        FirebaseApp.configure()
 
+        if let path = Bundle.main.path(forResource: "Config", ofType: "plist"),
+           let dict = NSDictionary(contentsOfFile: path) as? [String: Any] {
+            guard let kakaoKey = dict["KAKAO_NATIVE_APP_KEY"] as? String else { return true }
+            KakaoSDK.initSDK(appKey: kakaoKey)
+        }
+        
         // Naver SDK 설정
         NMFAuthManager.shared().ncpKeyId = Naver.clientID
 
@@ -22,7 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     // MARK: UISceneSession Lifecycle
-
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         // Called when a new scene session is being created.
         // Use this method to select a configuration to create the new scene with.

@@ -11,13 +11,27 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard let windowScene = (scene as? UIWindowScene) else { return }
-        
-        window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = HikingMapViewController()
-        window?.makeKeyAndVisible()
+        guard let windowScene = scene as? UIWindowScene else { return }
+
+        let window = UIWindow(windowScene: windowScene)
+
+        // Kakao Provider
+        let provider = KakaoLoginProvider()
+
+        // Firestore Repository
+        let userRepo = UserRepository()
+
+        // Firebase AuthService (Kakao → Functions kakaoLogin → CustomToken → signIn)
+        let authService = FirebaseAuthService(provider: provider, userRepo: userRepo)
+
+        // ViewModel / Root VC
+        let vm = LoginViewModel(auth: authService)
+        let root = LoginViewController(vm: vm)
+
+        window.rootViewController = UINavigationController(rootViewController: root)
+        self.window = window
+        window.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
