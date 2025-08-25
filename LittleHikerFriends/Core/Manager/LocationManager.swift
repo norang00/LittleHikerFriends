@@ -18,13 +18,16 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         super.init()
         manager.delegate = self
         
+        // 실시간 추적
+        manager.desiredAccuracy = kCLLocationAccuracyBest // 최고 정확도
+        
         // 초기 권한 요청
         if manager.authorizationStatus == .notDetermined {
             manager.requestWhenInUseAuthorization()
         }
     }
     
-    // MARK: - 위치 추적 시작 (Apple 권장 방식)
+    // MARK: - 위치 추적 시작
     func startLocationUpdates() {
         isLocationUpdateRequested = true
         
@@ -61,14 +64,13 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     }
     
     // MARK: - CLLocationManagerDelegate
-    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let latest = locations.last {
-            onUpdate?(latest)
-        }
+        guard let latest = locations.last else { return }
+        onUpdate?(latest)
+        print("📍 실시간 위치 업데이트: \(latest.coordinate.latitude), \(latest.coordinate.longitude)")
     }
     
-    // MARK: - 권한 상태 변경 처리 (Apple 권장 방식)
+    // MARK: - 권한 상태 변경 처리
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         print("📍 위치 권한 상태 변경: \(authorizationStatusString(status))")
         

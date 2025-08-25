@@ -28,25 +28,21 @@ class HikingMapViewController: UIViewController {
         
         // 네이버 지도를 기본 지도 타입으로 설정
         mapView.mapType = .basic
-        mapView.setLayerGroup(NMF_LAYER_GROUP_MOUNTAIN, isEnabled: true)
 
         locationManager.onUpdate = { [weak self] location in
-            // MARK: - 실제 사용자 위치 사용 (추후 활성화 예정)
-            // let coordinate = location.coordinate
-            // let userLocation = NMGLatLng(lat: coordinate.latitude, lng: coordinate.longitude)
             
-            // MARK: - 테스트용 고정 위치 (북한산 백운대)
-            let userLocation = NMGLatLng(lat: 37.660779, lng: 126.978799) // 북한산 백운대
+            // MARK: - 실제 사용자 위치 사용
+            let coordinate = location.coordinate
+            let userLocation = NMGLatLng(lat: coordinate.latitude, lng: coordinate.longitude)
+            print("🎯 실제 위치 업데이트: \(userLocation.lat), \(userLocation.lng)")
 
-            // user location 에 따른 카메라 이동
+            // user location 에 따른 카메라, 마커 이동
             self?.updateCamera(at: userLocation)
-            
-            // user location 에 따른 마커 이동
-            self?.updateMarker(at: userLocation, name: "me")
+            self?.updateMarker(at: userLocation, name: "나")
         }
     }
     
-    // MARK: - 초기 카메라 위치 설정
+    // MARK: - 초기 카메라 위치 설정 (임시)
     private func setInitialCameraPosition() {
         // 북한산 중앙 위치 (정확한 좌표)
         let bukhanMountainCenter = NMGLatLng(lat: 37.660779, lng: 126.978799)
@@ -74,18 +70,24 @@ class HikingMapViewController: UIViewController {
     
     private func updateMarker(at location: NMGLatLng, name: String) {
         if let marker = userMarker {
+            // 기존 마커 위치 업데이트
             marker.position = location
+            print("📍 마커 위치 업데이트: \(location.lat), \(location.lng)")
         } else {
-            let markerImageName = "tempUser"
-            let originalImage = UIImage(named: markerImageName)! // [TODO]
-            let resizedImage = UIImage.resize(image: originalImage, targetSize: CGSize(width: 20, height: 20))
-            let overlayImage = NMFOverlayImage(image: resizedImage)
-            
+            // 새 사용자 마커 생성
             let marker = NMFMarker(position: location)
             marker.captionText = name
-            marker.iconImage = overlayImage
+            
+            // 사용자 위치를 나타내는 파란색 마커
+            marker.iconImage = NMF_MARKER_IMAGE_BLUE
+            marker.width = 30
+            marker.height = 40
+            
+            // 지도에 마커 추가
             marker.mapView = mapView
             userMarker = marker
+            
+            print("✅ 사용자 마커 생성: \(name) at (\(location.lat), \(location.lng))")
         }
     }
 }
