@@ -16,6 +16,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let window = UIWindow(windowScene: windowScene)
 
+        // MARK: - 탭바를 시작점으로 설정 (개발용)
+        let tabBarController = MainTabBarController()
+        window.rootViewController = tabBarController
+        self.window = window
+        window.makeKeyAndVisible()
+        
+        print("✅ MainTabBarController로 앱 시작")
+
+        /* MARK: - 로그인 플로우 (추후 활성화 예정)
         do {
             // Kakao Provider
             let provider = KakaoLoginProvider()
@@ -63,6 +72,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.window = window
             window.makeKeyAndVisible()
         }
+        */
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
