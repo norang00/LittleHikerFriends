@@ -58,7 +58,7 @@ final class ProfileCreateView: UIView {
         return tf
     }()
     
-    private let guaidLabel: UILabel = {
+    private let guideLabel: UILabel = {
         let l = UILabel()
         l.text = "*6글자까지 가능합니다."
         l.font = .systemFont(ofSize: 16, weight: .regular)
@@ -97,7 +97,7 @@ final class ProfileCreateView: UIView {
     }
 
     private func setupLayout() {
-        [titleLabel, avatarView, cameraButton, nicknameField, guaidLabel, doneButton].forEach {
+        [titleLabel, avatarView, cameraButton, nicknameField, guideLabel, doneButton].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             addSubview($0)
         }
@@ -121,14 +121,19 @@ final class ProfileCreateView: UIView {
             nicknameField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
             nicknameField.heightAnchor.constraint(equalToConstant: 60),
 
-            guaidLabel.topAnchor.constraint(equalTo: nicknameField.bottomAnchor, constant: 16),
-            guaidLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            guideLabel.topAnchor.constraint(equalTo: nicknameField.bottomAnchor, constant: 16),
+            guideLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
 
             doneButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -60),
             doneButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
             doneButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
             doneButton.heightAnchor.constraint(equalToConstant: 60),
         ])
+    }
+    
+    func setHelper(text: String?) {
+        guideLabel.text = text ?? "*6글자까지 가능합니다."
+        guideLabel.textColor = (text == nil) ? .lightGray : .systemRed
     }
 
     // MARK: Bind
