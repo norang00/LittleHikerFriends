@@ -45,9 +45,22 @@ final class LoginViewController: UIViewController {
             guard let self else { return }
             switch r {
             case .main:
-                self.navigationController?.pushViewController(ViewController(), animated: true)
+                // 로그인 성공 시 탭바 컨트롤러로 전환
+                let tabBarController = MainTabBarController()
+                
+                // 현재 window의 rootViewController를 교체
+                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                   let window = windowScene.windows.first {
+                    window.rootViewController = tabBarController
+                    
+                    // 부드러운 전환 애니메이션
+                    UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: nil)
+                }
             case .profile:
-                let vc = UIViewController(); vc.view.backgroundColor = .systemGroupedBackground; vc.title = "프로필 만들기"
+                // 프로필 생성이 필요한 경우 (추후 구현)
+                let vc = UIViewController()
+                vc.view.backgroundColor = .systemGroupedBackground
+                vc.title = "프로필 만들기"
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         }

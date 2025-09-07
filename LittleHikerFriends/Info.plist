@@ -24,5 +24,9 @@
 		<key>UIImageName</key>
 		<string></string>
 	</dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>등산 중 친구들과 위치를 공유하고 등산로를 추적하기 위해 위치 정보가 필요합니다.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>등산 중 친구들과 위치를 공유하고 등산로를 추적하기 위해 위치 정보가 필요합니다.</string>
 </dict>
 </plist>
