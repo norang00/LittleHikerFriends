@@ -170,7 +170,6 @@ struct ProfileCreateViewPreviewWrapper: UIViewRepresentable {
             print("✅ tap done")
         }
         func profileView(_ view: ProfileCreateView, didChangeNickname text: String) {
-            print("✏️ nickname:", text)
             let ok = !text.trimmingCharacters(in: .whitespaces).isEmpty && text.count <= 6
             view.render(.init(avatar: view.avatarView.image, nickname: text, isDoneEnabled: ok))
         }
