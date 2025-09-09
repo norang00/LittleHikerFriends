@@ -57,10 +57,8 @@ final class LoginViewController: UIViewController {
                     UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: nil)
                 }
             case .profile:
-                // 프로필 생성이 필요한 경우 (추후 구현)
-                let vc = UIViewController()
-                vc.view.backgroundColor = .systemGroupedBackground
-                vc.title = "프로필 만들기"
+                let vc = CreateProfileViewController(); vc.view.backgroundColor = .systemGroupedBackground; vc.title = "프로필 만들기"
+
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         }
